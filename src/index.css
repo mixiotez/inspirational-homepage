@@ -1,4 +1,16 @@
+:root {
+  font-family: 'Rubik', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  color: black;
+}
+
 * {
   padding: 0;
   margin: 0;
+}
+
+body {
+  margin: 16px 32px;
 }
