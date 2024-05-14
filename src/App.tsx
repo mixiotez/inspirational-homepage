@@ -1,5 +1,5 @@
 import Carousel from './components/Carousel';
-import Quote from './components/Quote/Quote';
+import Quote from './components/Quote';
 
 function App() {
   return (
