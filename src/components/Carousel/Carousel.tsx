@@ -1,23 +1,30 @@
 import { useEffect, useState } from 'react';
-import mockedImages from '../MockedImages.json';
 import { Container } from './CarouselContainer';
+import mockedImagesPage from './mockedImagesPage.json';
 
-const UNSPLASH_URL: string =
-  'https://api.unsplash.com/photos/random?' +
+type FetchStatus = 'loading' | 'successful' | 'error';
+type Page = typeof mockedImagesPage;
+type Images = Page['results'];
+
+const UNSPLASH_URL =
+  'https://api.unsplash.com/search/photos?' +
   new URLSearchParams({
-    count: '5',
+    query: 'nature',
+    per_page: '5',
     orientation: 'landscape',
-    topics: 'nature,inspirational',
-  });
+  }).toString();
 
-const Carousel = () => {
-  const [images, setImages] = useState<[] | typeof mockedImages>([]);
+const Carousel: React.FC = () => {
+  const [images, setImages] = useState<Images>([]);
+  const [fetchStatus, setFetchStatus] = useState<FetchStatus>('loading');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const currentImage = images[currentImageIndex];
 
   useEffect(() => {
     const fetchImages = async () => {
-      const response = await fetch(UNSPLASH_URL, {
+      setFetchStatus('loading');
+
+      const response: Response = await fetch(UNSPLASH_URL, {
         cache: 'no-cache',
         headers: {
           'Accept-Version': 'v1',
@@ -27,17 +34,21 @@ const Carousel = () => {
         },
       });
 
-      return await response.json();
+      return (await response.json()) as Promise<Page>;
     };
 
     fetchImages()
       .then((data) => {
-        setImages(data);
+        setFetchStatus('successful');
+        setImages(data.results);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setFetchStatus('error');
+        console.error(error);
+      });
   }, []);
 
-  if (!currentImage) return <></>;
+  if (fetchStatus !== 'successful') return <></>;
 
   return (
     <Container>
