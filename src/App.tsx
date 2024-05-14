@@ -1,7 +1,9 @@
+import Carousel from './components/Carousel';
+
 function App() {
   return (
     <>
-      <p>Images</p>
+      <Carousel />
       <p>Weather</p>
       <p>Inspirational Quote</p>
       <p>Goals!</p>

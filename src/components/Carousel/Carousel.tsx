@@ -1,11 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import mockedImages from '../MockedImages.json';
-import { Container } from './Container';
+import { Container } from './CarouselContainer';
 
-export const Carousel = () => {
-  const [images, setImages] = useState(mockedImages);
+const UNSPLASH_URL: string =
+  'https://api.unsplash.com/photos/random?' +
+  new URLSearchParams({
+    count: '5',
+    orientation: 'landscape',
+    topics: 'nature,inspirational',
+  });
+
+const Carousel = () => {
+  const [images, setImages] = useState<[] | typeof mockedImages>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const currentImage = images[currentImageIndex];
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const response = await fetch(UNSPLASH_URL, {
+        cache: 'no-cache',
+        headers: {
+          'Accept-Version': 'v1',
+          Authorization: `Client-ID ${
+            import.meta.env.VITE_UNSPLASH_ACCESS_KEY
+          }`,
+        },
+      });
+
+      return await response.json();
+    };
+
+    fetchImages()
+      .then((data) => {
+        setImages(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  if (!currentImage) return <></>;
 
   return (
     <Container>
@@ -27,3 +59,5 @@ export const Carousel = () => {
     </Container>
   );
 };
+
+export default Carousel;
