@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import mockedQuote from './mockedQuote.json';
+import { QuoteContainer } from './QuoteContainer';
 
 const QUOTABLE_URL = 'https://api.quotable.io/quotes';
 const RANDOM_QUOTE_URL = QUOTABLE_URL + '/random?tags=inspirational';
@@ -28,11 +29,12 @@ const Quote: React.FC = () => {
 
   if (!quote) return <></>;
 
+  const citeUrl = `${QUOTABLE_URL}/${quote._id}`;
+
   return (
-    <p>
-      <q cite={`${QUOTABLE_URL}/${quote._id}`}>{quote.content}</q>-{' '}
-      {quote.author}
-    </p>
+    <QuoteContainer>
+      <q cite={citeUrl}>{quote.content}</q>- {quote.author}
+    </QuoteContainer>
   );
 };
 
