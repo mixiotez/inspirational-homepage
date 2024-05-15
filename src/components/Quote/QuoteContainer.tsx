@@ -6,6 +6,7 @@ export const QuoteContainer = styled.p`
   line-height: 1;
   text-align: end;
   display: flex;
+  flex-basis: 80%;
   margin: 0 64px;
   padding: 16px 32px;
   flex-direction: column;
