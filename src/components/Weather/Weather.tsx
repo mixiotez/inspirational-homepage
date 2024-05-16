@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import mockedWeather from './mockedWeather.json';
 import { WeatherContainer } from './WeatherContainer';
 
-type WeatherResponse = typeof mockedWeather;
+type WeatherResponse = typeof mockedWeather & {
+  sys: { country?: string };
+};
 
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?';
 const searchParams = new URLSearchParams({

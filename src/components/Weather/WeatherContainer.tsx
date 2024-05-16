@@ -1,22 +1,11 @@
 import styled from 'styled-components';
+import Card from '../common/Card';
 
-export const WeatherContainer = styled.div`
-  display: flex;
+export const WeatherContainer = styled(Card)`
   flex-basis: 20%;
-  color: rgb(15, 15, 15);
-  font-size: 1rem;
-  line-height: 1;
-  padding: 16px 32px;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 16px;
-  gap: 16px;
 
   img {
-    margin: -20px; // The png is badly cropped. This helps align it better.
-  }
-
-  p {
-    margin-bottom: 8px;
+    margin: -26px; // The png is badly cropped. This helps align it better.
   }
 
   div {
@@ -27,11 +16,11 @@ export const WeatherContainer = styled.div`
     justify-content: space-evenly;
 
     &:first-child {
-      min-width: fit-content;
       border-right: 2px dotted rgba(0, 0, 0, 0.5);
 
       p {
         font-size: 0.75rem;
+        margin: 0;
       }
     }
 

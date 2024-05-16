@@ -18,6 +18,7 @@ function App() {
 
 const FirstCardsContainer = styled.div`
   display: flex;
+  gap: 32px;
 `;
 
 export default App;
