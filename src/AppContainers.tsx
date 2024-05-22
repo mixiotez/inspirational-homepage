@@ -7,7 +7,8 @@ export const CardsContainer = styled.div`
 `;
 
 export const AppContainer = styled(CardsContainer)`
-  height: calc(100vh - 64px);
+  overflow: hidden;
+  height: calc(100vh - 32px);
   margin: 16px 32px;
   flex-direction: column;
   justify-content: space-around;

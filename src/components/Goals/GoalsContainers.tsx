@@ -7,7 +7,7 @@ export const GoalsContainer = styled(Card)`
   justify-content: center;
 `;
 
-export const GoalContainer = styled.div`
+export const GoalContainer = styled.div<{ $isDone: boolean }>`
   position: relative;
   display: flex;
   min-width: 70px;
@@ -22,6 +22,7 @@ export const GoalContainer = styled.div`
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   background-color: rgba(255, 255, 255, 0.5);
   transition: all 0.2s ease;
+  opacity: ${(props) => (props.$isDone ? '0.5' : '1')};
 
   div {
     position: absolute;

@@ -18,14 +18,22 @@ const defaultGoals: Goal[] = [
 const Goals: React.FC = () => {
   const [goals, setGoals] = useState<Goal[]>(defaultGoals);
 
+  const deleteGoal = (id: number) => {
+    const updatedGoals = goals.filter((goal) => goal.id !== id);
+
+    setGoals(updatedGoals);
+  };
+
   return (
-    <GoalsContainer>
-      {goals.map(({ id, description }) => (
-        <Goal id={id} key={id}>
-          {description}
-        </Goal>
-      ))}
-    </GoalsContainer>
+    <>
+      <GoalsContainer>
+        {goals.map(({ id, description }) => (
+          <Goal onChange={deleteGoal} id={id} key={id}>
+            {description}
+          </Goal>
+        ))}
+      </GoalsContainer>
+    </>
   );
 };
 
