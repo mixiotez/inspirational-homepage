@@ -2,23 +2,23 @@ import styled from 'styled-components';
 import Carousel from './components/Carousel';
 import Quote from './components/Quote';
 import Weather from './components/Weather';
+import Goals from './components/Goals';
+import { AppContainer, CardsContainer } from './AppContainers';
 
 function App() {
   return (
-    <>
+    <AppContainer>
       <Carousel />
-      <FirstCardsContainer>
+      <CardsContainer>
         <Quote />
         <Weather />
-      </FirstCardsContainer>
-      <p>Goals!</p>
-    </>
+      </CardsContainer>
+      <Goals />
+      <CardsContainer>
+        <p>Developed by me</p>
+      </CardsContainer>
+    </AppContainer>
   );
 }
-
-const FirstCardsContainer = styled.div`
-  display: flex;
-  gap: 32px;
-`;
 
 export default App;
