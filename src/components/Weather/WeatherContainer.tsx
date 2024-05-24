@@ -16,6 +16,7 @@ export const WeatherContainer = styled(Card)`
     justify-content: space-evenly;
 
     &:first-child {
+      min-width: 72px;
       border-right: 2px dotted rgba(0, 0, 0, 0.5);
 
       p {

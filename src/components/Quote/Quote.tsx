@@ -5,7 +5,7 @@ import { FetchStatus } from '../common/types';
 
 const QUOTABLE_URL = 'https://api.quotable.io/quotes';
 const RANDOM_QUOTE_URL =
-  QUOTABLE_URL + '/random?tags=inspirational&maxLength=150';
+  QUOTABLE_URL + '/random?tags=inspirational&maxLength=140';
 
 type QuoteData = typeof mockedQuote;
 type QuoteResponse = QuoteData[];
