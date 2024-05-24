@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Goal from './Goal';
 import {
   GoalFormContainer,
   GoalsCard,
   GoalsContainer,
 } from './GoalsContainers';
+import { getFromLocalStorage, saveToLocalStorage } from '../../utils';
 
 type Goal = {
   id: number;
@@ -19,20 +20,41 @@ const defaultGoals: Goal[] = [
 ];
 
 const Goals: React.FC = () => {
-  const [goals, setGoals] = useState<Goal[]>(defaultGoals);
+  const [goals, setGoals] = useState<Goal[]>([]);
   const [newGoal, setNewGoal] = useState('');
+
+  useEffect(() => {
+    const storedGoals = getFromLocalStorage('goals');
+
+    if (storedGoals) {
+      const jsonValue = JSON.parse(storedGoals) as unknown as Goal[];
+
+      if (jsonValue.length > 0) {
+        setGoals(jsonValue);
+        return;
+      }
+    }
+
+    saveToLocalStorage('goals', JSON.stringify(defaultGoals));
+    setGoals(defaultGoals);
+  }, []);
 
   const addNewGoal = () => {
     const nextId = (goals[goals.length - 1]?.id || 0) + 1;
+    const updatedGoals = [...goals, { id: nextId, description: newGoal }];
 
-    setGoals([...goals, { id: nextId, description: newGoal }]);
+    setGoals(updatedGoals);
+    saveToLocalStorage('goals', JSON.stringify(updatedGoals));
     setNewGoal('');
   };
 
   const deleteGoal = (id: number) => {
-    const updatedGoals = goals.filter((goal) => goal.id !== id);
+    setGoals((goals) => {
+      const updatedGoals = goals.filter((goal) => goal.id !== id);
 
-    setGoals(updatedGoals);
+      saveToLocalStorage('goals', JSON.stringify(updatedGoals));
+      return updatedGoals;
+    });
   };
 
   return (
