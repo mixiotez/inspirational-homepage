@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import Carousel from './components/Carousel';
 import Quote from './components/Quote';
 import Weather from './components/Weather';
