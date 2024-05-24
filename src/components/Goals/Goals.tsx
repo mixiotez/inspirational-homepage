@@ -16,7 +16,6 @@ const defaultGoals: Goal[] = [
   { id: 2, description: 'Spend 15 mins meditating' },
   { id: 3, description: 'Exercise for 30 mins' },
   { id: 4, description: 'Take the dogs out for a walk' },
-  { id: 5, description: 'A' },
 ];
 
 const Goals: React.FC = () => {

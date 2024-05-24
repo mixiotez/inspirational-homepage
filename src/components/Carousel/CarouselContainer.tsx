@@ -4,15 +4,14 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
 
   img {
-    position: absolute;
+    position: fixed;
     object-fit: cover;
     width: 100%;
     height: 100%;

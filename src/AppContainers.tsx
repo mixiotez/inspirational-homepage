@@ -10,7 +10,7 @@ export const AppContainer = styled(CardsContainer)`
   overflow: hidden;
   height: calc(100vh - 32px);
   margin: 16px 32px;
+  gap: 32px;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
 `;
