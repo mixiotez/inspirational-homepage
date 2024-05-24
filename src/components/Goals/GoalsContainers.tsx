@@ -31,6 +31,7 @@ export const GoalFormContainer = styled.div`
   display: flex;
   gap: 16px;
   flex-basis: 100%;
+  min-width: 0;
   padding-bottom: 24px;
   margin-bottom: 16px;
   border-bottom: 2px dotted rgba(0, 0, 0, 0.5);

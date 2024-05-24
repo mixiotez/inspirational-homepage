@@ -33,3 +33,16 @@ export const AppContainer = styled(CardsContainer)`
     margin: 8px 16px;
   }
 `;
+
+export const Footer = styled.footer`
+  position: absolute;
+  bottom: 0;
+  padding: 0 8px;
+  background-color: white;
+  font-size: 1.5rem;
+  text-align: center;
+
+  @media screen and (max-width: 767px) {
+    font-size: 1.25rem;
+  }
+`;

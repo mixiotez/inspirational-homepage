@@ -7,6 +7,7 @@ export const WeatherContainer = styled(Card)`
   }
 
   div {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
