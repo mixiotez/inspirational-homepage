@@ -27,7 +27,7 @@ export const GoalsCard = styled(Card)`
   }
 `;
 
-export const GoalFormContainer = styled.div`
+export const GoalFormContainer = styled.form`
   display: flex;
   gap: 16px;
   flex-basis: 100%;
