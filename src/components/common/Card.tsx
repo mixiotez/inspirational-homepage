@@ -17,6 +17,15 @@ const Card = styled.section`
   p {
     margin-bottom: 8px;
   }
+
+  @media screen and (max-width: 1023px) {
+    padding: 16px 24px;
+  }
+
+  @media screen and (max-width: 767px) {
+    gap: 8px;
+    padding: 8px 16px;
+  }
 `;
 
 export default Card;

@@ -4,7 +4,7 @@ import Card from '../common/Card';
 export const QuoteContainer = styled(Card)`
   font-size: 1.25rem;
   text-align: right;
-  flex-basis: 80%;
+  flex-grow: 1;
   flex-direction: column;
 
   q {
@@ -13,5 +13,21 @@ export const QuoteContainer = styled(Card)`
     font-weight: 400;
     font-style: italic;
     text-align: left;
+  }
+
+  @media screen and (max-width: 1023px) {
+    font-size: 1rem;
+
+    q {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 0.75rem;
+
+    q {
+      font-size: 1.25rem;
+    }
   }
 `;

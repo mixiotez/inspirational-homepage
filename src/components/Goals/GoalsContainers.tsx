@@ -12,18 +12,36 @@ export const GoalsCard = styled(Card)`
     font-size: 1.75rem;
     margin: 8px;
   }
+
+  @media screen and (max-width: 1023px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    h1 {
+      letter-spacing: normal;
+      font-size: 1.25rem;
+    }
+  }
 `;
 
-export const GoalFormContainer = styled.div`
+export const GoalFormContainer = styled.form`
   display: flex;
   gap: 16px;
   flex-basis: 100%;
+  min-width: 0;
   padding-bottom: 24px;
   margin-bottom: 16px;
   border-bottom: 2px dotted rgba(0, 0, 0, 0.5);
 
   input {
     flex-grow: 1;
+
+    &:focus {
+      outline: rgba(0, 0, 0, 0.5) solid 3px;
+    }
   }
 
   button {
@@ -54,13 +72,42 @@ export const GoalFormContainer = styled.div`
     padding: 16px 24px;
     background-color: rgba(255, 255, 255, 0.5);
   }
+
+  @media screen and (max-width: 1023px) {
+    margin-bottom: 8px;
+
+    button,
+    input {
+      text-align: center;
+      font-size: 1rem;
+      padding: 16px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 16px;
+
+    button,
+    input {
+      font-size: 0.75rem;
+      padding: 8px 16px;
+    }
+  }
 `;
 
 export const GoalsContainer = styled.div`
+  flex-grow: 1;
   display: flex;
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
+
+  @media screen and (max-width: 767px) {
+    justify-content: flex-start;
+    gap: 8px;
+  }
 `;
 
 type GoalContainerProps = { $isDone: boolean };
@@ -86,32 +133,41 @@ export const GoalContainer = styled.div<GoalContainerProps>`
     right: 0;
     display: flex;
     gap: 4px;
+  }
 
-    button {
-      color: white;
-      cursor: pointer;
-      border: 0;
-      border-radius: 16px;
-      padding: 3px 6px;
-      font-size: 0.75rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-      transition: all 0.1s ease;
+  button {
+    color: white;
+    cursor: pointer;
+    border: 0;
+    border-radius: 16px;
+    padding: 3px 6px;
+    font-size: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    transition: all 0.1s ease;
 
-      &:first-child {
-        background-color: rgba(255, 0, 0, 0.6);
+    &:first-child {
+      background-color: rgba(255, 0, 0, 0.6);
 
-        &:hover {
-          background-color: rgba(255, 0, 0, 0.9);
-        }
-      }
-
-      &:last-child {
-        background-color: rgba(0, 128, 0, 0.6);
-
-        &:hover {
-          background-color: rgba(0, 128, 0, 0.9);
-        }
+      &:hover {
+        background-color: rgba(255, 0, 0, 0.9);
       }
     }
+
+    &:last-child {
+      background-color: rgba(0, 128, 0, 0.6);
+
+      &:hover {
+        background-color: rgba(0, 128, 0, 0.9);
+      }
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    padding: 16px;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 0.75rem;
+    padding: 16px 8px;
   }
 `;

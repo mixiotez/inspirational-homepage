@@ -57,10 +57,18 @@ const Goals: React.FC = () => {
     });
   };
 
+  const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+
+    if (!newGoal) return;
+
+    addNewGoal();
+  };
+
   return (
     <GoalsCard>
       <h1>Today&apos;s Goals</h1>
-      <GoalFormContainer>
+      <GoalFormContainer onSubmit={handleFormSubmit}>
         <input
           type="text"
           aria-label="New goal entry"

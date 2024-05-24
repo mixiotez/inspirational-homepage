@@ -2,7 +2,7 @@ import Carousel from './components/Carousel';
 import Quote from './components/Quote';
 import Weather from './components/Weather';
 import Goals from './components/Goals';
-import { AppContainer, CardsContainer } from './AppContainers';
+import { AppContainer, CardsContainer, Footer } from './AppContainers';
 
 function App() {
   return (
@@ -13,9 +13,16 @@ function App() {
         <Weather />
       </CardsContainer>
       <Goals />
-      <CardsContainer>
-        <p>Developed by me</p>
-      </CardsContainer>
+      <Footer>
+        Created with ❤️ by{' '}
+        <a
+          href="https://github.com/mikempala"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Miguel Téllez
+        </a>
+      </Footer>
     </AppContainer>
   );
 }

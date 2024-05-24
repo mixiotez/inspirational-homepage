@@ -45,4 +45,27 @@ export const Container = styled.div`
       background-color: rgba(255, 255, 255, 0.1);
     }
   }
+
+  @media screen and (max-width: 1023px) {
+    button {
+      font-size: 3rem;
+      line-height: 28px;
+      padding: 16px;
+      margin: 8px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    button {
+      border-radius: 0;
+      padding: 32px 4px;
+    }
+  }
+
+  @media screen and (max-width: 424px) {
+    button {
+      padding: 32px 0;
+      margin: 0;
+    }
+  }
 `;
