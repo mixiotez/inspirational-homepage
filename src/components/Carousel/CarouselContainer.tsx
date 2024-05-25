@@ -49,7 +49,7 @@ export const Container = styled.div`
   p {
     position: absolute;
     bottom: 36px;
-    right: 0;
+    right: 4px;
     padding: 4px;
     background-color: white;
   }
@@ -70,7 +70,7 @@ export const Container = styled.div`
     }
 
     p {
-      bottom: 36px;
+      bottom: 30px;
     }
   }
 
