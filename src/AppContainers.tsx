@@ -17,7 +17,9 @@ export const CardsContainer = styled.div`
   }
 `;
 
-export const AppContainer = styled(CardsContainer)`
+export const AppContainer = styled(CardsContainer).attrs({
+  as: 'main',
+})`
   overflow: hidden;
   height: calc(100vh - 32px);
   margin: 16px 32px;
@@ -35,9 +37,9 @@ export const AppContainer = styled(CardsContainer)`
 `;
 
 export const Footer = styled.footer`
+  width: 100%;
   position: absolute;
   bottom: 0;
-  padding: 0 8px;
   background-color: white;
   font-size: 1.5rem;
   text-align: center;

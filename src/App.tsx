@@ -6,13 +6,15 @@ import { AppContainer, CardsContainer, Footer } from './AppContainers';
 
 function App() {
   return (
-    <AppContainer>
-      <Carousel />
-      <CardsContainer>
-        <Quote />
-        <Weather />
-      </CardsContainer>
-      <Goals />
+    <>
+      <AppContainer>
+        <Carousel />
+        <CardsContainer>
+          <Quote />
+          <Weather />
+        </CardsContainer>
+        <Goals />
+      </AppContainer>
       <Footer>
         Created with ❤️ by{' '}
         <a
@@ -23,7 +25,7 @@ function App() {
           Miguel Téllez
         </a>
       </Footer>
-    </AppContainer>
+    </>
   );
 }
 
