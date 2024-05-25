@@ -72,7 +72,7 @@ const Weather: React.FC = () => {
     };
 
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  });
+  }, []);
 
   if (!weather || !currentWeather) return <></>;
 
