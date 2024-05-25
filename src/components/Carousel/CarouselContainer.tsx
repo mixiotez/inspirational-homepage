@@ -46,6 +46,14 @@ export const Container = styled.div`
     }
   }
 
+  p {
+    position: absolute;
+    bottom: 36px;
+    right: 4px;
+    padding: 4px;
+    background-color: white;
+  }
+
   @media screen and (max-width: 1023px) {
     button {
       font-size: 3rem;
@@ -59,6 +67,10 @@ export const Container = styled.div`
     button {
       border-radius: 0;
       padding: 32px 4px;
+    }
+
+    p {
+      bottom: 30px;
     }
   }
 

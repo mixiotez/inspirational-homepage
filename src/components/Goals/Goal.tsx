@@ -20,7 +20,7 @@ const Goal = ({
 
     setTimeout(() => {
       onChange(id);
-    }, 1500);
+    }, 2500);
   };
 
   return (
@@ -29,7 +29,7 @@ const Goal = ({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <Confetti active={isDone} config={{ spread: 180 }} />
+      <Confetti active={isDone} config={{ spread: 90, elementCount: 75 }} />
       {children}
       {hover && !isDone && (
         <div>

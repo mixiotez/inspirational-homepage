@@ -70,13 +70,14 @@ const Goals: React.FC = () => {
       <h1>Today&apos;s Goals</h1>
       <GoalFormContainer onSubmit={handleFormSubmit}>
         <input
+          required
           type="text"
           aria-label="New goal entry"
           value={newGoal}
           placeholder="What would you like to achieve today?"
           onChange={(e) => setNewGoal(e.target.value)}
         />
-        <button disabled={!newGoal.length} onClick={addNewGoal}>
+        <button type="submit" disabled={!newGoal.length} onClick={addNewGoal}>
           Create New Goal
         </button>
       </GoalFormContainer>

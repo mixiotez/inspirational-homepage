@@ -25,4 +25,9 @@ module.exports = {
     ],
     '@typescript-eslint/consistent-type-definitions': 'off',
   },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 };
