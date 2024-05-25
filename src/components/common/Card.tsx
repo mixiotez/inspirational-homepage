@@ -9,6 +9,7 @@ const Card = styled.section`
   gap: 16px;
   padding: 16px 32px;
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   background-color: rgba(255, 255, 255, 0.25);
   border-radius: 16px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 6px 12px -2px,
