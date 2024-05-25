@@ -6,7 +6,7 @@ type FetchStatus = 'loading' | 'successful' | 'error';
 type Page = typeof mockedImagesPage;
 type Images = Page['results'];
 
-const UNSPLASH_URL =
+const UNSPLASH_API_URL =
   'https://api.unsplash.com/search/photos?' +
   new URLSearchParams({
     query: 'nature',
@@ -14,17 +14,22 @@ const UNSPLASH_URL =
     orientation: 'landscape',
   }).toString();
 
+const UNSPLASH_URL = 'https://unsplash.com/';
+const UTM_PARAMS = '?utm_source=inspirational_homepage&utm_medium=referral';
+
 const Carousel: React.FC = () => {
   const [images, setImages] = useState<Images>([]);
   const [fetchStatus, setFetchStatus] = useState<FetchStatus>('loading');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const currentImage = images[currentImageIndex];
+  const userUrl =
+    UNSPLASH_URL + '@' + currentImage?.user?.username + UTM_PARAMS;
 
   useEffect(() => {
     const fetchImages = async () => {
       setFetchStatus('loading');
 
-      const response: Response = await fetch(UNSPLASH_URL, {
+      const response: Response = await fetch(UNSPLASH_API_URL, {
         cache: 'no-cache',
         headers: {
           'Accept-Version': 'v1',
@@ -67,6 +72,10 @@ const Carousel: React.FC = () => {
       >
         &gt;
       </button>
+      <p>
+        Photo by <a href={userUrl}>{currentImage.user.name}</a> on{' '}
+        <a href={UNSPLASH_URL + UTM_PARAMS}>Unsplash</a>
+      </p>
     </Container>
   );
 };
