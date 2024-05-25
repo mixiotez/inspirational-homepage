@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import mockedWeather from './mockedWeather.json';
+import mockedIPLocation from './mockedIPLocation.json';
 import { WeatherContainer } from './WeatherContainer';
 
 type WeatherResponse = typeof mockedWeather & {
   sys: { country?: string };
 };
 
+const IPINFO_URL = `https://ipinfo.io/?token=${
+  import.meta.env.VITE_IPINFO_TOKEN
+}`;
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?';
 const searchParams = new URLSearchParams({
   appid: import.meta.env.VITE_WEATHER_API_KEY,
@@ -17,6 +21,12 @@ const Weather: React.FC = () => {
   const currentWeather = weather?.weather[0];
 
   useEffect(() => {
+    const locateWithIPAddress = async () => {
+      const response = await fetch(IPINFO_URL);
+
+      return (await response.json()) as Promise<typeof mockedIPLocation>;
+    };
+
     const fetchWeather = async () => {
       const response: Response = await fetch(
         WEATHER_URL + searchParams.toString()
@@ -39,11 +49,30 @@ const Weather: React.FC = () => {
     };
 
     const onError: PositionErrorCallback = (error) => {
-      console.error(`Weather error: (${error.code}): ${error.message}`);
+      console.warn(`Weather error: (${error.code}): ${error.message}`);
+
+      locateWithIPAddress()
+        .then((data) => {
+          const [latitude, longitude] = data.loc.split(',');
+
+          searchParams.set('lat', latitude);
+          searchParams.set('lon', longitude);
+
+          fetchWeather()
+            .then((data) => {
+              setWeather(data);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     };
 
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  }, []);
+  });
 
   if (!weather || !currentWeather) return <></>;
 
