@@ -133,6 +133,11 @@ export const GoalContainer = styled.div<GoalContainerProps>`
     right: 0;
     display: flex;
     gap: 4px;
+
+    &:first-child {
+      // Avoid confetti from changing opacity when task is marked as completed
+      opacity: 1;
+    }
   }
 
   button {
