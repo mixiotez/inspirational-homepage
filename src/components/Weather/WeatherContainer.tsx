@@ -15,7 +15,7 @@ export const WeatherContainer = styled(Card)`
 
     &:first-child {
       min-width: fit-content;
-      padding-right: 8px;
+      padding-right: 16px;
       flex-grow: 1;
       gap: 4px;
       border-right: 2px dotted rgba(0, 0, 0, 0.5);

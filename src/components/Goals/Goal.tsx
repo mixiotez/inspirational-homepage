@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { GoalContainer } from './GoalsContainers';
 import Confetti from 'react-dom-confetti';
 
@@ -29,7 +29,10 @@ const Goal = ({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <Confetti active={isDone} config={{ spread: 90, elementCount: 75 }} />
+      <Confetti
+        active={isDone}
+        config={{ spread: 120, elementCount: 75, startVelocity: 25 }}
+      />
       {children}
       {hover && !isDone && (
         <div>
@@ -41,4 +44,6 @@ const Goal = ({
   );
 };
 
-export default Goal;
+const MemoGoal = memo(Goal);
+
+export default MemoGoal;

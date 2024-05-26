@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Goal from './Goal';
 import {
   GoalFormContainer,
@@ -48,14 +48,14 @@ const Goals: React.FC = () => {
     setNewGoal('');
   };
 
-  const deleteGoal = (id: number) => {
+  const deleteGoal = useCallback((id: number) => {
     setGoals((goals) => {
       const updatedGoals = goals.filter((goal) => goal.id !== id);
 
       saveToLocalStorage('goals', JSON.stringify(updatedGoals));
       return updatedGoals;
     });
-  };
+  }, []);
 
   const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();

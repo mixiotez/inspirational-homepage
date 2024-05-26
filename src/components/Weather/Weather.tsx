@@ -81,7 +81,7 @@ const Weather: React.FC = () => {
       <div>
         <p>{currentWeather.main}</p>
         <img
-          src={`http://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`}
+          src={`https://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`}
           role="presentation"
         />
       </div>
