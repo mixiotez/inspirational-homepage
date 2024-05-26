@@ -38,7 +38,7 @@ export const AppContainer = styled(CardsContainer).attrs({
 
 export const Footer = styled.footer`
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   background-color: white;
   font-size: 1.5rem;
