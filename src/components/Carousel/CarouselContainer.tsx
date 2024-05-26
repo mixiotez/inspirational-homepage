@@ -10,13 +10,6 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
 
-  img {
-    position: fixed;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
-
   button {
     cursor: pointer;
     position: relative;
@@ -70,6 +63,7 @@ export const Container = styled.div`
     }
 
     p {
+      font-size: 0.75rem;
       bottom: 30px;
     }
   }
@@ -80,4 +74,13 @@ export const Container = styled.div`
       margin: 0;
     }
   }
+`;
+
+type BackgroundImageProps = { $displayImage: boolean };
+export const BackgroundImage = styled.img<BackgroundImageProps>`
+  display: ${(props) => (props.$displayImage ? 'block' : 'none')};
+  position: fixed;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 `;

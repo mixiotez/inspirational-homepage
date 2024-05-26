@@ -21,7 +21,7 @@ export const AppContainer = styled(CardsContainer).attrs({
   as: 'main',
 })`
   overflow: hidden;
-  height: calc(100vh - 32px);
+  height: calc(100vh - 64px);
   margin: 16px 32px;
   flex-direction: column;
   align-items: center;
@@ -31,14 +31,14 @@ export const AppContainer = styled(CardsContainer).attrs({
   }
 
   @media screen and (max-width: 767px) {
-    height: calc(100vh - 16px);
+    height: calc(100vh - 42px);
     margin: 8px 16px;
   }
 `;
 
 export const Footer = styled.footer`
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   background-color: white;
   font-size: 1.5rem;

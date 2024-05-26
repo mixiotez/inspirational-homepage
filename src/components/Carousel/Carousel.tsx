@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container } from './CarouselContainer';
+import { BackgroundImage, Container } from './CarouselContainer';
 import mockedImagesPage from './mockedImagesPage.json';
 
 type FetchStatus = 'loading' | 'successful' | 'error';
@@ -57,7 +57,14 @@ const Carousel: React.FC = () => {
 
   return (
     <Container>
-      <img src={currentImage.urls.full} alt={currentImage.alt_description} />
+      {images.map(({ id, urls, alt_description }, index) => (
+        <BackgroundImage
+          $displayImage={currentImageIndex === index}
+          key={id}
+          src={urls.full}
+          alt={alt_description}
+        />
+      ))}
       <button
         aria-label="Change background to previous image"
         disabled={currentImageIndex === 0}

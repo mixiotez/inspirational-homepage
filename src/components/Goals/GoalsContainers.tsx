@@ -6,6 +6,8 @@ export const GoalsCard = styled(Card)`
   width: calc(80% - 16px);
   flex-wrap: wrap;
   align-content: flex-start;
+  overflow: scroll;
+  max-height: 50vh;
 
   h1 {
     letter-spacing: 0.05rem;
