@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import Card from '../common/Card';
 
 export const WeatherContainer = styled(Card)`
+  justify-content: center;
+  align-items: center;
+
   img {
     margin: -25px; // The png is badly cropped. This helps align it better.
   }

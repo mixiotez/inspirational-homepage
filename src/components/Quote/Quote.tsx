@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import mockedQuote from './mockedQuote.json';
 import { QuoteContainer } from './QuoteContainer';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 import { FetchStatus } from '../common/types';
 
 const QUOTABLE_URL = 'https://api.quotable.io/quotes';
@@ -33,13 +34,24 @@ const Quote: React.FC = () => {
       });
   }, []);
 
-  if (fetchStatus !== 'successful' || !quote) return <></>;
-
-  const citeUrl = `${QUOTABLE_URL}/${quote._id}`;
+  const citeUrl = `${QUOTABLE_URL}/${quote?._id}`;
 
   return (
     <QuoteContainer>
-      <q cite={citeUrl}>{quote.content}</q>- {quote.author}
+      {fetchStatus === 'successful' && quote && (
+        <>
+          <q cite={citeUrl}>{quote.content}</q>- {quote.author}
+        </>
+      )}
+      {fetchStatus === 'loading' && (
+        <ScaleLoader
+          loading
+          height={55}
+          margin={4}
+          aria-label="Loading Spinner"
+          color="rgba(15,15,15, 0.75)"
+        />
+      )}
     </QuoteContainer>
   );
 };
