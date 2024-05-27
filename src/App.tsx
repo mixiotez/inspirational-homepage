@@ -3,11 +3,14 @@ import Quote from './components/Quote';
 import Weather from './components/Weather';
 import Goals from './components/Goals';
 import { AppContainer, CardsContainer, Footer } from './AppContainers';
+import NotificationsProvider from './NotificationsContext';
+import Notifications from './components/Notifications';
 
 function App() {
   return (
-    <>
+    <NotificationsProvider>
       <AppContainer>
+        <Notifications />
         <Carousel />
         <CardsContainer>
           <Quote />
@@ -25,7 +28,7 @@ function App() {
           Miguel Téllez
         </a>
       </Footer>
-    </>
+    </NotificationsProvider>
   );
 }
 
