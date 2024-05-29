@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BackgroundImage, Container } from './CarouselContainer';
 import mockedImagesPage from './mockedImagesPage.json';
+import { useNotifications } from '../hooks/useNotifications';
+import { CAROUSEL_ERROR } from '../common/errors';
 
 type FetchStatus = 'loading' | 'successful' | 'error';
 type Page = typeof mockedImagesPage;
@@ -18,6 +20,8 @@ const UNSPLASH_URL = 'https://unsplash.com/';
 const UTM_PARAMS = '?utm_source=inspirational_homepage&utm_medium=referral';
 
 const Carousel: React.FC = () => {
+  const { addNotification } = useNotifications();
+
   const [images, setImages] = useState<Images>([]);
   const [fetchStatus, setFetchStatus] = useState<FetchStatus>('loading');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -26,6 +30,8 @@ const Carousel: React.FC = () => {
     UNSPLASH_URL + '@' + currentImage?.user?.username + UTM_PARAMS;
 
   useEffect(() => {
+    let ignore = false;
+
     const fetchImages = async () => {
       setFetchStatus('loading');
 
@@ -44,16 +50,25 @@ const Carousel: React.FC = () => {
 
     fetchImages()
       .then((data) => {
+        if (ignore) return;
+
         setFetchStatus('successful');
         setImages(data.results);
       })
       .catch((error) => {
-        setFetchStatus('error');
-        console.error(error);
-      });
-  }, []);
+        if (ignore) return;
 
-  if (fetchStatus !== 'successful') return <></>;
+        console.error(error);
+        setFetchStatus('error');
+        addNotification(CAROUSEL_ERROR);
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [addNotification]);
+
+  if (fetchStatus === 'error' || !currentImage) return <></>;
 
   return (
     <Container>

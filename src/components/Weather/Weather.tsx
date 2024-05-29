@@ -4,6 +4,8 @@ import mockedIPLocation from './mockedIPLocation.json';
 import { WeatherContainer } from './WeatherContainer';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import { FetchStatus } from '../common/types';
+import { useNotifications } from '../hooks/useNotifications';
+import { WEATHER_ERROR, IPINFO_ERROR } from '../common/errors';
 
 type WeatherResponse = typeof mockedWeather & {
   sys: { country?: string };
@@ -19,6 +21,7 @@ const searchParams = new URLSearchParams({
 });
 
 const Weather: React.FC = () => {
+  const { addNotification } = useNotifications();
   const [fetchStatus, setFetchStatus] = useState<FetchStatus>('loading');
   const [weather, setWeather] = useState<WeatherResponse>();
   const currentWeather = weather?.weather[0];
@@ -34,6 +37,7 @@ const Weather: React.FC = () => {
   };
 
   useEffect(() => {
+    let ignore = false;
     const locateWithIPAddress = async () => {
       const response = await fetch(IPINFO_URL);
 
@@ -55,8 +59,15 @@ const Weather: React.FC = () => {
       coords: { latitude, longitude },
     }) => {
       fetchWeather(latitude.toString(), longitude.toString())
-        .then(handleSuccess)
-        .catch(handleError);
+        .then((data) => {
+          if (ignore) return;
+          handleSuccess(data);
+        })
+        .catch((error) => {
+          if (ignore) return;
+          addNotification(WEATHER_ERROR);
+          handleError(error);
+        });
     };
 
     const onError: PositionErrorCallback = (error) => {
@@ -64,18 +75,36 @@ const Weather: React.FC = () => {
 
       locateWithIPAddress()
         .then((data) => {
-          const [latitude, longitude] = data.loc.split(',');
+          if (ignore) return;
 
+          const [latitude, longitude] = data.loc.split(',');
           fetchWeather(latitude, longitude)
-            .then(handleSuccess)
-            .catch(handleError);
+            .then((data) => {
+              if (ignore) return;
+              handleSuccess(data);
+            })
+            .catch((error) => {
+              if (ignore) return;
+              addNotification(WEATHER_ERROR);
+              handleError(error);
+            });
         })
-        .catch(handleError);
+        .catch((error) => {
+          if (ignore) return;
+          addNotification(IPINFO_ERROR);
+          handleError(error);
+        });
     };
 
     setFetchStatus('loading');
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  }, []);
+
+    return () => {
+      ignore = true;
+    };
+  }, [addNotification]);
+
+  if (fetchStatus === 'error' || !weather) return <></>;
 
   return (
     <WeatherContainer>
