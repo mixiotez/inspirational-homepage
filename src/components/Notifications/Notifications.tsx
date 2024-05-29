@@ -12,6 +12,8 @@ const Notifications: React.FC = () => {
     );
   };
 
+  if (!notifications.length) return <></>;
+
   return (
     <NotificationsContainer>
       {notifications.map(({ id, description, isError }) => {

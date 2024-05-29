@@ -8,7 +8,7 @@ import { QUOTE_ERROR } from '../common/errors';
 
 const QUOTABLE_URL = 'https://api.quotable.io/quotes';
 const RANDOM_QUOTE_URL =
-  QUOTABLE_URL + '/random?tags=inspirational&maxLength=140';
+  QUOTABLE_URL + '/random?tags=inspirational&maxLength=95';
 
 type QuoteData = typeof mockedQuote;
 type QuoteResponse = QuoteData[];

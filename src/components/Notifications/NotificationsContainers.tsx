@@ -11,7 +11,10 @@ export const NotificationsContainer = styled.div`
   width: 300px;
 
   @media screen and (max-width: 424px) {
-    width: 200px;
+    top: 0;
+    left: 0;
+    width: calc(100% - 16px);
+    padding: 8px;
   }
 `;
 
@@ -24,20 +27,16 @@ export const NotificationContainer = styled.div<NotificationContainerProps>`
   padding: 8px;
   justify-content: space-between;
   background-color: ${(props) =>
-    props.$isError ? 'rgba(255, 0, 0, 0.8)' : 'rgba(220, 220, 100, 0.8)'};
+    props.$isError ? 'rgb(255, 20, 20)' : 'rgb(220, 220, 100)'};
   opacity: ${(props) => (props.$isActive ? '1' : '0.05')};
   transition: opacity 4s linear 3s;
 
   button {
     cursor: pointer;
+    color: white;
     background-color: transparent;
     border: none;
-    padding: 8px;
+    padding: 8px 16px;
     margin: -8px;
-  }
-
-  @media screen and (max-width: 424px) {
-    padding: 4px;
-    gap: 8px;
   }
 `;
