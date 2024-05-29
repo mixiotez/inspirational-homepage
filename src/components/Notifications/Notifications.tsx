@@ -21,7 +21,7 @@ const Notifications: React.FC = () => {
             id={id}
             description={description}
             isError={isError}
-            onClose={() => deleteNotification(id)}
+            onClose={deleteNotification}
           />
         );
       })}

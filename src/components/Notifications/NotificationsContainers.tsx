@@ -17,6 +17,7 @@ export const NotificationsContainer = styled.div`
 
 type NotificationContainerProps = { $isError: boolean; $isActive: boolean };
 export const NotificationContainer = styled.div<NotificationContainerProps>`
+  color: white;
   display: flex;
   gap: 16px;
   border: 1px solid black;
