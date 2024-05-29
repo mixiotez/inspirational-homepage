@@ -6,7 +6,7 @@ export const GoalsCard = styled(Card)`
   width: calc(80% - 16px);
   flex-wrap: wrap;
   align-content: flex-start;
-  overflow: scroll;
+  overflow: auto;
   max-height: 50vh;
 
   h1 {
