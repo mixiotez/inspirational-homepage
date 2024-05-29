@@ -14,6 +14,7 @@ const UNSPLASH_API_URL =
     query: 'nature',
     per_page: '5',
     orientation: 'landscape',
+    page: Math.floor(Math.random() * 30 + 1).toString(),
   }).toString();
 
 const UNSPLASH_URL = 'https://unsplash.com/';
@@ -95,8 +96,18 @@ const Carousel: React.FC = () => {
         &gt;
       </button>
       <p>
-        Photo by <a href={userUrl}>{currentImage.user.name}</a> on{' '}
-        <a href={UNSPLASH_URL + UTM_PARAMS}>Unsplash</a>
+        Photo by{' '}
+        <a href={userUrl} rel="noopener noreferrer" target="_blank">
+          {currentImage.user.name}
+        </a>{' '}
+        on{' '}
+        <a
+          href={UNSPLASH_URL + UTM_PARAMS}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Unsplash
+        </a>
       </p>
     </Container>
   );
