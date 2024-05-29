@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import mockedWeather from './mockedWeather.json';
 import mockedIPLocation from './mockedIPLocation.json';
 import { WeatherContainer } from './WeatherContainer';
+import ScaleLoader from 'react-spinners/ScaleLoader';
+import { FetchStatus } from '../common/types';
+import { useNotifications } from '../hooks/useNotifications';
+import { WEATHER_ERROR, IPINFO_ERROR } from '../common/errors';
 
 type WeatherResponse = typeof mockedWeather & {
   sys: { country?: string };
@@ -17,17 +21,33 @@ const searchParams = new URLSearchParams({
 });
 
 const Weather: React.FC = () => {
+  const { addNotification } = useNotifications();
+  const [fetchStatus, setFetchStatus] = useState<FetchStatus>('loading');
   const [weather, setWeather] = useState<WeatherResponse>();
   const currentWeather = weather?.weather[0];
 
+  const handleError = (error: unknown) => {
+    setFetchStatus('error');
+    console.error('Weather error: ', error);
+  };
+
+  const handleSuccess = (data: WeatherResponse) => {
+    setFetchStatus('successful');
+    setWeather(data);
+  };
+
   useEffect(() => {
+    let ignore = false;
     const locateWithIPAddress = async () => {
       const response = await fetch(IPINFO_URL);
 
       return (await response.json()) as Promise<typeof mockedIPLocation>;
     };
 
-    const fetchWeather = async () => {
+    const fetchWeather = async (latitude: string, longitude: string) => {
+      searchParams.set('lat', latitude);
+      searchParams.set('lon', longitude);
+
       const response: Response = await fetch(
         WEATHER_URL + searchParams.toString()
       );
@@ -35,16 +55,18 @@ const Weather: React.FC = () => {
       return (await response.json()) as Promise<WeatherResponse>;
     };
 
-    const onSuccess: PositionCallback = (position) => {
-      searchParams.set('lat', position.coords.latitude.toString());
-      searchParams.set('lon', position.coords.longitude.toString());
-
-      fetchWeather()
+    const onSuccess: PositionCallback = ({
+      coords: { latitude, longitude },
+    }) => {
+      fetchWeather(latitude.toString(), longitude.toString())
         .then((data) => {
-          setWeather(data);
+          if (ignore) return;
+          handleSuccess(data);
         })
         .catch((error) => {
-          console.error(error);
+          if (ignore) return;
+          addNotification(WEATHER_ERROR);
+          handleError(error);
         });
     };
 
@@ -53,46 +75,67 @@ const Weather: React.FC = () => {
 
       locateWithIPAddress()
         .then((data) => {
+          if (ignore) return;
+
           const [latitude, longitude] = data.loc.split(',');
-
-          searchParams.set('lat', latitude);
-          searchParams.set('lon', longitude);
-
-          fetchWeather()
+          fetchWeather(latitude, longitude)
             .then((data) => {
-              setWeather(data);
+              if (ignore) return;
+              handleSuccess(data);
             })
             .catch((error) => {
-              console.error(error);
+              if (ignore) return;
+              addNotification(WEATHER_ERROR);
+              handleError(error);
             });
         })
-        .catch((err) => {
-          console.error(err);
+        .catch((error) => {
+          if (ignore) return;
+          addNotification(IPINFO_ERROR);
+          handleError(error);
         });
     };
 
+    setFetchStatus('loading');
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  }, []);
 
-  if (!weather || !currentWeather) return <></>;
+    return () => {
+      ignore = true;
+    };
+  }, [addNotification]);
+
+  if (fetchStatus === 'error' || !weather) return <></>;
 
   return (
     <WeatherContainer>
-      <div>
-        <p>{currentWeather.main}</p>
-        <img
-          src={`https://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`}
-          role="presentation"
+      {fetchStatus === 'loading' && (
+        <ScaleLoader
+          loading
+          height={55}
+          margin={4}
+          aria-label="Loading Spinner"
+          color="rgba(15,15,15, 0.75)"
         />
-      </div>
-      <div>
-        <p>
-          {weather.name}, {weather.sys?.country}
-        </p>
-        <p>
-          <b>{weather.main.temp.toFixed(1)}°</b>
-        </p>
-      </div>
+      )}
+      {fetchStatus === 'successful' && currentWeather && (
+        <>
+          <div>
+            <p>{currentWeather.main}</p>
+            <img
+              src={`https://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`}
+              role="presentation"
+            />
+          </div>
+          <div>
+            <p>
+              {weather.name}, {weather.sys?.country}
+            </p>
+            <p>
+              <b>{weather.main.temp.toFixed(1)}°</b>
+            </p>
+          </div>
+        </>
+      )}
     </WeatherContainer>
   );
 };

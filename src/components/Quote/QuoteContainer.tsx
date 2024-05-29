@@ -6,6 +6,7 @@ export const QuoteContainer = styled(Card)`
   text-align: right;
   flex-grow: 1;
   flex-direction: column;
+  justify-content: center;
 
   q {
     font-size: 2rem;
@@ -13,6 +14,10 @@ export const QuoteContainer = styled(Card)`
     font-weight: 400;
     font-style: italic;
     text-align: left;
+  }
+
+  span {
+    align-self: center;
   }
 
   @media screen and (max-width: 1023px) {

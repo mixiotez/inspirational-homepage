@@ -47,4 +47,8 @@ export const Footer = styled.footer`
   @media screen and (max-width: 767px) {
     font-size: 1.25rem;
   }
+
+  @media screen and (max-width: 424px) {
+    font-size: 1rem;
+  }
 `;
