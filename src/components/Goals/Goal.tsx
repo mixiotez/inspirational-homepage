@@ -1,6 +1,7 @@
 import { useState, memo } from 'react';
 import { GoalContainer } from './GoalsContainers';
 import Confetti from 'react-dom-confetti';
+import { createPortal } from 'react-dom';
 
 type GoalProps = {
   id: number;
@@ -29,10 +30,19 @@ const Goal = ({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <Confetti
-        active={isDone}
-        config={{ spread: 120, elementCount: 75, startVelocity: 25 }}
-      />
+      {createPortal(
+        <Confetti
+          active={isDone}
+          config={{
+            spread: 120,
+            elementCount: 75,
+            startVelocity: 20,
+            dragFriction: 0.05,
+            duration: 2500,
+          }}
+        />,
+        document.getElementById('confetti-container') as Element
+      )}
       {children}
       {hover && !isDone && (
         <div>

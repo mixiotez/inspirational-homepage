@@ -2,7 +2,12 @@ import Carousel from './components/Carousel';
 import Quote from './components/Quote';
 import Weather from './components/Weather';
 import Goals from './components/Goals';
-import { AppContainer, CardsContainer, Footer } from './AppContainers';
+import {
+  AppContainer,
+  CardsContainer,
+  Footer,
+  ConfettiContainer,
+} from './AppContainers';
 import NotificationsProvider from './NotificationsContext';
 import Notifications from './components/Notifications';
 
@@ -10,6 +15,7 @@ function App() {
   return (
     <NotificationsProvider>
       <AppContainer>
+        <ConfettiContainer id="confetti-container" />
         <Notifications />
         <Carousel />
         <CardsContainer>

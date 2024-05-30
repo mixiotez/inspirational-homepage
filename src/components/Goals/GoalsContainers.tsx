@@ -6,7 +6,8 @@ export const GoalsCard = styled(Card)`
   width: calc(80% - 16px);
   flex-wrap: wrap;
   align-content: flex-start;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   max-height: 50vh;
 
   h1 {
@@ -107,7 +108,6 @@ export const GoalsContainer = styled.div`
   flex-wrap: wrap;
 
   @media screen and (max-width: 767px) {
-    justify-content: flex-start;
     gap: 8px;
   }
 `;
@@ -127,7 +127,8 @@ export const GoalContainer = styled.div<GoalContainerProps>`
   box-shadow: rgba(0, 0, 0, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   background-color: rgba(255, 255, 255, 0.5);
-  opacity: ${(props) => (props.$isDone ? '0.5' : '1')};
+  opacity: ${(props) => (props.$isDone ? '0.05' : '1')};
+  transition: opacity 2.5s ease-out;
 
   div {
     position: absolute;
@@ -135,11 +136,6 @@ export const GoalContainer = styled.div<GoalContainerProps>`
     right: 0;
     display: flex;
     gap: 4px;
-
-    &:first-child {
-      // Avoid confetti from changing opacity when task is marked as completed
-      opacity: 1;
-    }
   }
 
   button {
