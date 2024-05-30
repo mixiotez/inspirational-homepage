@@ -52,3 +52,10 @@ export const Footer = styled.footer`
     font-size: 1rem;
   }
 `;
+
+export const ConfettiContainer = styled.div`
+  z-index: 1;
+  position: sticky;
+  top: 50%;
+  left: 50%;
+`;
