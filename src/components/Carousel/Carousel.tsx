@@ -34,35 +34,35 @@ const Carousel: React.FC = () => {
     let ignore = false;
 
     const fetchImages = async () => {
-      setFetchStatus('loading');
+      try {
+        setFetchStatus('loading');
 
-      const response: Response = await fetch(UNSPLASH_API_URL, {
-        cache: 'no-cache',
-        headers: {
-          'Accept-Version': 'v1',
-          Authorization: `Client-ID ${
-            import.meta.env.VITE_UNSPLASH_ACCESS_KEY
-          }`,
-        },
-      });
+        const response: Response = await fetch(UNSPLASH_API_URL, {
+          cache: 'no-cache',
+          headers: {
+            'Accept-Version': 'v1',
+            Authorization: `Client-ID ${
+              import.meta.env.VITE_UNSPLASH_ACCESS_KEY
+            }`,
+          },
+        });
 
-      return (await response.json()) as Promise<Page>;
+        const data = (await response.json()) as Page;
+
+        if (!ignore) {
+          setFetchStatus('successful');
+          setImages(data.results);
+        }
+      } catch (error) {
+        if (!ignore) {
+          console.error('Carousel error: ', error);
+          setFetchStatus('error');
+          addNotification(CAROUSEL_ERROR);
+        }
+      }
     };
 
-    fetchImages()
-      .then((data) => {
-        if (ignore) return;
-
-        setFetchStatus('successful');
-        setImages(data.results);
-      })
-      .catch((error) => {
-        if (ignore) return;
-
-        console.error(error);
-        setFetchStatus('error');
-        addNotification(CAROUSEL_ERROR);
-      });
+    void fetchImages();
 
     return () => {
       ignore = true;
