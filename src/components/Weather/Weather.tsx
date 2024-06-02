@@ -31,69 +31,55 @@ const Weather: React.FC = () => {
     console.error('Weather error: ', error);
   };
 
-  const handleSuccess = (data: WeatherResponse) => {
-    setFetchStatus('successful');
-    setWeather(data);
-  };
-
   useEffect(() => {
     let ignore = false;
     const locateWithIPAddress = async () => {
-      const response = await fetch(IPINFO_URL);
+      try {
+        const response = await fetch(IPINFO_URL);
+        const data = (await response.json()) as typeof mockedIPLocation;
+        const [latitude, longitude] = data.loc.split(',');
 
-      return (await response.json()) as Promise<typeof mockedIPLocation>;
+        void fetchWeather(latitude, longitude);
+      } catch (error) {
+        if (!ignore) {
+          addNotification(IPINFO_ERROR);
+          handleError(error);
+        }
+      }
     };
 
     const fetchWeather = async (latitude: string, longitude: string) => {
-      searchParams.set('lat', latitude);
-      searchParams.set('lon', longitude);
+      try {
+        searchParams.set('lat', latitude);
+        searchParams.set('lon', longitude);
 
-      const response: Response = await fetch(
-        WEATHER_URL + searchParams.toString()
-      );
+        const response: Response = await fetch(
+          WEATHER_URL + searchParams.toString()
+        );
+        const data = (await response.json()) as WeatherResponse;
 
-      return (await response.json()) as Promise<WeatherResponse>;
+        if (!ignore) {
+          setFetchStatus('successful');
+          setWeather(data);
+        }
+      } catch (error) {
+        if (!ignore) {
+          addNotification(WEATHER_ERROR);
+          handleError(error);
+        }
+      }
     };
 
     const onSuccess: PositionCallback = ({
       coords: { latitude, longitude },
     }) => {
-      fetchWeather(latitude.toString(), longitude.toString())
-        .then((data) => {
-          if (ignore) return;
-          handleSuccess(data);
-        })
-        .catch((error) => {
-          if (ignore) return;
-          addNotification(WEATHER_ERROR);
-          handleError(error);
-        });
+      void fetchWeather(latitude.toString(), longitude.toString());
     };
 
     const onError: PositionErrorCallback = (error) => {
       console.warn(`Weather error: (${error.code}): ${error.message}`);
 
-      locateWithIPAddress()
-        .then((data) => {
-          if (ignore) return;
-
-          const [latitude, longitude] = data.loc.split(',');
-          fetchWeather(latitude, longitude)
-            .then((data) => {
-              if (ignore) return;
-              handleSuccess(data);
-            })
-            .catch((error) => {
-              if (ignore) return;
-              addNotification(WEATHER_ERROR);
-              handleError(error);
-            });
-        })
-        .catch((error) => {
-          if (ignore) return;
-          addNotification(IPINFO_ERROR);
-          handleError(error);
-        });
+      void locateWithIPAddress();
     };
 
     setFetchStatus('loading');

@@ -22,26 +22,26 @@ const Quote: React.FC = () => {
     let ignore = false;
 
     const fetchQuote = async () => {
-      setFetchStatus('loading');
-      const response: Response = await fetch(RANDOM_QUOTE_URL);
+      try {
+        setFetchStatus('loading');
 
-      return (await response.json()) as Promise<QuoteResponse>;
+        const response: Response = await fetch(RANDOM_QUOTE_URL);
+        const data = (await response.json()) as QuoteResponse;
+
+        if (!ignore) {
+          setFetchStatus('successful');
+          setQuote(data[0]);
+        }
+      } catch (error) {
+        if (!ignore) {
+          console.error('Quote error: ', error);
+          setFetchStatus('error');
+          addNotification(QUOTE_ERROR);
+        }
+      }
     };
 
-    fetchQuote()
-      .then((data) => {
-        if (ignore) return;
-
-        setFetchStatus('successful');
-        setQuote(data[0]);
-      })
-      .catch((error) => {
-        if (ignore) return;
-
-        console.error(error);
-        setFetchStatus('error');
-        addNotification(QUOTE_ERROR);
-      });
+    void fetchQuote();
 
     return () => {
       ignore = true;
