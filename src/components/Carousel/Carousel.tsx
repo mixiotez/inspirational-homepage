@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { BackgroundImage, Container } from './CarouselContainer';
+import { Container } from './CarouselContainer';
 import mockedImagesPage from './mockedImagesPage.json';
 import { useNotifications } from '../hooks/useNotifications';
 import { CAROUSEL_ERROR } from '../common/errors';
+import ImageContainer from './ImageContainer';
 
 type FetchStatus = 'loading' | 'successful' | 'error';
 type Page = typeof mockedImagesPage;
@@ -73,10 +74,12 @@ const Carousel: React.FC = () => {
 
   return (
     <Container>
-      {images.map(({ id, urls, alt_description }, index) => (
-        <BackgroundImage
-          $displayImage={currentImageIndex === index}
+      {images.map(({ id, blur_hash, urls, alt_description }, index) => (
+        <ImageContainer
           key={id}
+          hash={blur_hash}
+          index={index}
+          displayImage={currentImageIndex === index}
           src={urls.full}
           alt={alt_description}
         />

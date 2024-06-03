@@ -70,6 +70,7 @@ const Goals: React.FC = () => {
       <h1>Today&apos;s Goals</h1>
       <GoalFormContainer onSubmit={handleFormSubmit}>
         <input
+          name="goalEntry"
           required
           type="text"
           aria-label="New goal entry"
