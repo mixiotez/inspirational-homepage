@@ -24,6 +24,7 @@ const ImageContainer = ({
     <>
       {isLoading && displayImage && <Blurhash hash={hash} />}
       <BackgroundImage
+        loading={index === 0 ? 'eager' : 'lazy'}
         fetchPriority={index === 0 ? 'high' : 'low'}
         $displayImage={displayImage}
         src={src}
