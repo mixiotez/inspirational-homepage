@@ -9,7 +9,7 @@ export const QuoteContainer = styled(Card)`
   justify-content: center;
 
   q {
-    font-size: 2rem;
+    font-size: 1.75rem;
     letter-spacing: 0.05rem;
     font-weight: 400;
     font-style: italic;

@@ -11,11 +11,13 @@ export const Container = styled.div`
   height: 100%;
 
   button {
+    height: 86px;
+    display: flex;
+    align-items: center;
     cursor: pointer;
     position: relative;
     color: rgba(0, 0, 0, 0.8);
     font-size: 4rem;
-    line-height: 40px;
     padding: 24px;
     margin: 16px;
     border: none;
@@ -49,8 +51,8 @@ export const Container = styled.div`
 
   @media screen and (max-width: 1023px) {
     button {
+      height: 60px;
       font-size: 3rem;
-      line-height: 28px;
       padding: 16px;
       margin: 8px;
     }
@@ -58,6 +60,7 @@ export const Container = styled.div`
 
   @media screen and (max-width: 767px) {
     button {
+      height: auto;
       border-radius: 0;
       padding: 32px 4px;
     }

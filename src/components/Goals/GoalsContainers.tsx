@@ -3,30 +3,33 @@ import Card from '../common/Card';
 
 export const GoalsCard = styled(Card)`
   flex-grow: 0.5;
-  width: calc(80% - 16px);
+  width: 724px;
   flex-wrap: wrap;
   align-content: flex-start;
-  overflow-x: hidden;
-  overflow-y: auto;
   max-height: 50vh;
+  overflow-clip-margin: content-box 8px;
+  overflow: clip;
 
   h1 {
     letter-spacing: 0.05rem;
-    font-size: 1.75rem;
-    margin: 8px;
+    font-size: 1.5rem;
   }
 
   @media screen and (max-width: 1023px) {
-    h1 {
-      font-size: 1.5rem;
-    }
+    width: calc(100% - 152px);
   }
 
   @media screen and (max-width: 767px) {
+    width: calc(100% - 104px);
+
     h1 {
       letter-spacing: normal;
       font-size: 1.25rem;
     }
+  }
+
+  @media screen and (max-width: 424px) {
+    width: calc(100% - 72px);
   }
 `;
 
@@ -36,7 +39,7 @@ export const GoalFormContainer = styled.form`
   flex-basis: 100%;
   min-width: 0;
   padding-bottom: 24px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   border-bottom: 2px dotted rgba(0, 0, 0, 0.5);
 
   input {
@@ -69,7 +72,7 @@ export const GoalFormContainer = styled.form`
   button,
   input {
     color: rgb(15, 15, 15);
-    font-size: 1.25rem;
+    font-size: 1rem;
     border: 0;
     border-radius: 16px;
     padding: 16px 24px;
@@ -77,12 +80,9 @@ export const GoalFormContainer = styled.form`
   }
 
   @media screen and (max-width: 1023px) {
-    margin-bottom: 8px;
-
     button,
     input {
       text-align: center;
-      font-size: 1rem;
       padding: 16px;
     }
   }
@@ -91,6 +91,7 @@ export const GoalFormContainer = styled.form`
     flex-direction: column;
     gap: 8px;
     padding-bottom: 16px;
+    margin-bottom: 16px;
 
     button,
     input {
@@ -101,19 +102,27 @@ export const GoalFormContainer = styled.form`
 `;
 
 export const GoalsContainer = styled.div`
-  flex-grow: 1;
   display: flex;
   gap: 16px;
+  margin: -16px -8px;
+  padding: 16px 8px;
   justify-content: center;
   flex-wrap: wrap;
+  overflow: hidden auto;
+  scrollbar-width: thin;
+  scrollbar-color: white transparent;
+  max-height: calc(100% - 148px);
 
   @media screen and (max-width: 767px) {
+    max-height: calc(100% - 138px);
     gap: 8px;
+    margin: -24px -8px;
   }
 `;
 
 type GoalContainerProps = { $isDone: boolean };
 export const GoalContainer = styled.div<GoalContainerProps>`
+  flex: 1 1 auto;
   position: relative;
   display: flex;
   min-width: 70px;
@@ -172,5 +181,7 @@ export const GoalContainer = styled.div<GoalContainerProps>`
   @media screen and (max-width: 767px) {
     font-size: 0.75rem;
     padding: 16px 8px;
+    min-width: 40px;
+    max-width: 175px;
   }
 `;
