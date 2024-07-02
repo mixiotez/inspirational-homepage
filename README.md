@@ -1,6 +1,6 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/88349ec2-788e-4e58-a5de-5208a3d06758/deploy-status)](https://app.netlify.com/sites/mikempala-inspirational-homepage/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/88349ec2-788e-4e58-a5de-5208a3d06758/deploy-status)](https://app.netlify.com/sites/mixiotez-inspirational-homepage/deploys)
 
-You can access the live site [here](https://mikempala-inspirational-homepage.netlify.app/)
+You can access the live site [here](https://inspirational-homepage.miguel-tellez.dev)
 
 # Inspirational Homepage
 
@@ -8,7 +8,7 @@ You can access the live site [here](https://mikempala-inspirational-homepage.net
 A homepage that displays a random set of inspirational images, the current local weather forecast, and a random inspirational quote. It also lets you add daily goals to a list.
 
 ## Preview
-<img width="600" alt="Screenshot of the application" src="https://github.com/mikempala/inspirational-homepage/assets/16872893/0e3f8a99-7798-40f8-a153-e63324cef929">
+<img width="600" alt="Inspirational Homepage screenshot" src="https://github.com/mikempala/inspirational-homepage/assets/16872893/0e3f8a99-7798-40f8-a153-e63324cef929">
 
 ## Installation
 ```bash
@@ -49,4 +49,4 @@ APIs are demo-only, allowing limited fetches per hour or month.
 
 ## Improvements
 * Create UI first, then hook components to their API.
-* Create a better defined wireframe before starting to develop.
+* Create a better-defined wireframe before starting to develop.
